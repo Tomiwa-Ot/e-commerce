@@ -5,7 +5,7 @@ E-commerce web application using php
 ## Features
 
 
-## Installation
+## Setup
 
 
 ## Screenshots
