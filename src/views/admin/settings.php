@@ -1,7 +1,8 @@
 <?php
 
-require __DIR__ . '/header.php'; 
+require __DIR__ . '/header.php';
 require __DIR__ . '/../db.php';
+require __DIR__ . '/../../csrf.php';
 
 if(isset($_POST['policy-submit'])) {
     $statement = $pdo->prepare("UPDATE policy SET policy=? WHERE id=?");

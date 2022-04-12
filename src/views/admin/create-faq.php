@@ -2,6 +2,7 @@
 
 require __DIR__ . '/header.php';
 require __DIR__ . '/../db.php';
+require __DIR__ . '/../../csrf.php';
 
 if(isset($_POST['submit'])) {
     $question = filter_input(INPUT_POST, 'question');

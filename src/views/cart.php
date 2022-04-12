@@ -2,6 +2,7 @@
 
 require __DIR__ . '/header.php'; 
 require __DIR__ . '/db.php';
+require __DIR__ . '/../csrf.php';
 require __DIR__ . '/invoice.php';
 require __DIR__ . '/sendgrid-php/sendgrid-php.php';
 require __DIR__ . '/admin/util.php';

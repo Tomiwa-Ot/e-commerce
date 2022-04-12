@@ -2,6 +2,7 @@
 session_start();
 
 require __DIR__ . '/db.php';
+require __DIR__ . '/../csrf.php';
 require __DIR__ . '/admin/util.php';
 require __DIR__ . '/sendgrid-php/sendgrid-php.php';
 
