@@ -72,7 +72,7 @@ function exportDB($host, $name, $user, $password) {
         $return .= "\n\n\n";
     }
 
-    $filename = 'yemyem-db-'. time() . '.sql';
+    $filename = time() . '.sql';
     $handle = fopen($filename, 'w');
     fwrite($handle, $return);
     fclose($handle);
