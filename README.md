@@ -1,12 +1,33 @@
 # ![php](https://img.shields.io/badge/Php-8993BE?style=for-the-badge&logo=php&logoColor=white) E-commerce Website
-E-commerce web application using php
+E-commerce web application built using php routing. Instead of relying on the web server to map the request path to a file, all requests are forwarded to [index.php](/src/index.php) which has defined routes and callbacks registered to each route. If the request URI is a valid route, the callback returns a page to the user else, redirected to the 404 page.
 
 
 ## Features
-
+- Login and registration system
+- Password reset
+- Ordering system
+- Update profile
+- Order history
+- CSRF protection
+- Sends invoice to user's email using ([sendgrid](https://sendgrid.com))
+- Livechat ([intercom](https://intercom.com))
+    #### Admin Panel
+- Create, modify and delete products, customers and faq
+- Unlimited product pictures
+- Image compression ([php_gd](https://php.net/manual/en/book.image.php))
+- Create or select product category
+- Export/Import database
+- Last 7 days sales and revenue stats using Chartjs
+- Modify contact details and privacy policy
+- Send email to users ([sendgrid](https://sendgrid.com))
 
 ## Setup
-
+- Create database
+- Execute [db-settings.sql](src/db-settings.sql)
+- Enter database config [db.php](src/views/db.php)
+- Enter sendgrid API key []
+- Enter intercom app id []
+- Enable the php_gd/gd extension in php.ini
 
 ## Screenshots
 ![Login](screenshots/login.png)
