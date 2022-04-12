@@ -31,6 +31,7 @@ foreach($_SESSION['cart'] as $item) {
 
 require __DIR__ . '/header.php';
 require __DIR__ . '/db.php';
+require __DIR__ . '/../csrf.php';
 
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $statement = $pdo->prepare("SELECT * FROM products WHERE id=?");
