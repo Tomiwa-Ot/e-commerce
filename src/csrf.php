@@ -10,7 +10,7 @@ class CSRF {
     }
 
     static public function generateToken() {
-
+        return md5(uniqid());
     }
 
     static public function csrfInputField() {
