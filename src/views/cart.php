@@ -17,7 +17,7 @@ if(isset($_POST['checkout'])) {
     $statement = $pdo->prepare("INSERT INTO transactions (name, email, address, details, timestamp) VALUES (?, ?, ?, ?, ?)");
     $statement->execute(array($_SESSION['name'], $_SESSION['email'], $_SESSION['address'], $details, $timestamp));
     $email = new \SendGrid\Mail\Mail();
-    $email->setFrom("donotreply@YOUR_SENGRID_DOMAIN", "Yem-Yem");
+    $email->setFrom("donotreply@YOUR_SENGRID_DOMAIN", "COMPANY NAME");
     $email->setSubject("Invoice");
     $email->addTo($_SESSION['email'], $_SESSION['name']);
     $message = generateInvoice($timestamp);
