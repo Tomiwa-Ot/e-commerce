@@ -25,8 +25,8 @@ E-commerce web application built using php routing. Instead of relying on the we
 - Create database
 - Execute [db-settings.sql](src/db-settings.sql)
 - Enter database config [db.php](src/views/db.php)
-- Enter sendgrid API key []
-- Enter intercom app id []
+- Enter sendgrid API key https://github.com/Tomiwa-Ot/e-commerce/blob/acb88e8d885feb9ed462242da9d4361c19755041/src/views/admin/util.php#L5
+- Enter intercom app id https://github.com/Tomiwa-Ot/e-commerce/blob/acb88e8d885feb9ed462242da9d4361c19755041/src/views/footer.php#L86 https://github.com/Tomiwa-Ot/e-commerce/blob/acb88e8d885feb9ed462242da9d4361c19755041/src/views/footer.php#L101
 - Enable the php_gd/gd extension in php.ini
 
 ## Screenshots
