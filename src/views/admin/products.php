@@ -10,7 +10,7 @@ $categories;
 $edit = false;
 
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
     if(isset($_POST['title'])) {
         $statement = $pdo->prepare("UPDATE products SET title=? WHERE id=?");
@@ -52,7 +52,7 @@ if(isset($_GET['id'])) {
     $statement->execute();
     $categories = $statement->fetchAll(PDO::FETCH_ASSOC);
 } else {
-    if(isset($_POST['delete'])) {
+    if(isset($_POST['delete']) && CSRF::validateToken($_POST['token'])) {
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
         $statement = $pdo->prepare("DELETE FROM products WHERE id=?");
         $statement->execute(array($id));
@@ -82,6 +82,7 @@ $categories = $statement->fetchAll(PDO::FETCH_ASSOC);
             <div class="card-body">
                 <div class="col-md-6">
                     <form action="/admin/products" method="post" enctype="multipart/form-data">
+                        <?php CSRF::csrfInputField() ?>
                         <div class="mb-3">
                             <label class="form-label">Name</label>
                             <input type="text" name="name" class="form-control" value="<?= $items[0]['title'] ?>">
@@ -147,6 +148,7 @@ $categories = $statement->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?= $item['category'] ?></td>
                                     <td class="text-end">
                                         <form action="/admin/products" method="post">
+                                            <?php CSRF::csrfInputField() ?>
                                             <input type="text" name="id" value="<?= $item['id'] ?>" hidden>
                                             <a href="/admin/products?id=<?= $item['id']; ?>" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen"></i></a>
                                             <button name="delete" type="submit" class="btn btn-outline-danger btn-rounded"><i class="fas fa-trash"></i></button>

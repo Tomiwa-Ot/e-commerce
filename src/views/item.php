@@ -9,7 +9,7 @@ if(!isset($_GET['id'])) {
 $inCart = false;
 
 
-if(isset($_POST['cart'])) {
+if(isset($_POST['cart']) && CSRF::validateToken($_POST['token'])) {
 	$_SESSION['cart'][$_POST['id']] = array(
         'id' => $_POST['id'],
         'title' => $_POST['title'],
@@ -108,6 +108,7 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <form action="/item?id=<?= $item[0]['id'] ?>" method="post">
                     <div class="single-product-details">
                         <h2><?= $item[0]['title'] ?></h2>
+                        <?php CSRF::csrfInputField() ?>
                         <input type="text" name="title" value="<?= $item[0]['title'] ?>" hidden>
                         <p class="product-price">₦<?= number_format($item[0]['price'], 2) ?></p>
                         <input type="text" name="price" value="<?= $item[0]['price'] ?>" hidden>

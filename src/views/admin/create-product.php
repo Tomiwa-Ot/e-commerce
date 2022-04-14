@@ -5,7 +5,7 @@ require __DIR__ . '/../db.php';
 require __DIR__ . '/../../csrf.php';
 require __DIR__ . '/util.php';
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $title = filter_input(INPUT_POST, 'title');
     $description = filter_input(INPUT_POST, 'description');
     $price = filter_input(INPUT_POST, 'price');
@@ -34,6 +34,7 @@ $categories = $statement->fetchAll(PDO::FETCH_ASSOC);
             <div class="card-body">
                 <div class="col-md-6">
                     <form action="/admin/products/create" method="post" enctype="multipart/form-data">
+                        <?php CSRF::csrfInputField() ?>
                         <div class="mb-3">
                             <label class="form-label">Name</label>
                             <input type="text" name="title" class="form-control" required>

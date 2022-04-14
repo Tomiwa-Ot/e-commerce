@@ -14,7 +14,7 @@ if(!isset($_GET['email'])) {
 
 $success;
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $code = filter_input(INPUT_POST, 'code');
     $statement = $pdo->prepare("SELECT * FROM users WHERE email=?");
     $statement->execute(array(filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL)));
@@ -31,7 +31,7 @@ if(isset($_POST['submit'])) {
     }
 }
 
-if(isset($_POST['reset'])) {
+if(isset($_POST['reset']) && CSRF::validateToken($_POST['token'])) {
     $password = password_hash(filter_input(INPUT_POST, 'password'), PASSWORD_DEFAULT);
     $statement = $pdo->prepare("UPDATE users SET password=?, code=?, expiration=? WHERE email=?");
     $statement->execute(array($password, 0, 0, filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL)));
@@ -85,6 +85,7 @@ if(isset($_POST['reset'])) {
                 <div class="col-md-6 col-md-offset-3">
                     <div class="block text-center">
                         <form class="text-left clearfix" method="post" action="<?= $_SERVER['REQUEST_URI'] ?>" >
+                            <?php CSRF::csrfInputField() ?>
                             <div class="form-group">
                                 <input type="password" name="password" class="form-control" placeholder="Enter new password">
                             </div>
@@ -105,6 +106,7 @@ if(isset($_POST['reset'])) {
                 <div class="block text-center">
                 <form class="text-left clearfix" method="post" action="<?= $_SERVER['REQUEST_URI'] ?>">
                     <p>Enter the code sent to your email.</p>
+                    <?php CSRF::csrfInputField() ?>
                     <div class="form-group">
                     <input type="text" name="code" class="form-control" id="exampleInputEmail1" placeholder="Enter code">
                     </div>

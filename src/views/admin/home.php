@@ -5,15 +5,15 @@ require __DIR__ . '/../db.php';
 require __DIR__ . '/../../csrf.php';
 require __DIR__ . '/util.php';
 
-if(isset($_POST['export'])) {
+if(isset($_POST['export']) && CSRF::validateToken($_POST['token'])) {
     exportDB($host, $name, $user, $password);
 }
 
-if(isset($_POST['import'])) {
+if(isset($_POST['import']) && CSRF::validateToken($_POST['token'])) {
     importDB($pdo);
 }
 
-if(isset($_POST['send-email'])) {
+if(isset($_POST['send-email']) && CSRF::validateToken($_POST['token'])) {
     $title = filter_input(INPUT_POST, 'title');
     $message = filter_input(INPUT_POST, 'message');
     if($_POST['flexRadioDefault'] == 'all') {
@@ -177,6 +177,7 @@ $userCount = $pdo->query("SELECT count(*) FROM users")->fetchColumn();
                             <!-- <small class="text-info">Normal Bootstrap elements</small> -->
                         </label>
                         <form action="/admin/home" method="post">
+                        <?php CSRF::csrfInputField() ?>
                         <div class="col-sm-10">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio1" value="all">
@@ -215,6 +216,7 @@ $userCount = $pdo->query("SELECT count(*) FROM users")->fetchColumn();
                                     <div class="row">
                                         <form action="/admin/home" id="import-form" method="post">
                                             <div class="col-sm-1">
+                                                <?php CSRF::csrfInputField() ?>
                                                 <input type="file" name="file" id="file" required>
                                             </div><br>
                                             <div class="col-sm-12">
@@ -225,6 +227,7 @@ $userCount = $pdo->query("SELECT count(*) FROM users")->fetchColumn();
                                 </div>
                                 <div class="col-sm-12">
                                     <form action="/admin/home" method="post">
+                                        <?php CSRF::csrfInputField() ?>
                                         <button name="export" type="submit" class="btn btn-primary mb-2"><i class="fas fa-file-export"></i> Export</button>
                                     </form>
                                 </div>

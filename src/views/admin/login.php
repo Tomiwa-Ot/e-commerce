@@ -7,7 +7,7 @@ require __DIR__ . '/../../csrf.php';
 
 $error = false;
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $username = filter_input(INPUT_POST, 'username');
     $password = filter_input(INPUT_POST, 'password');
     $statement = $pdo->prepare("SELECT * FROM admin WHERE username=?");
@@ -48,6 +48,7 @@ if(isset($_POST['submit'])) {
                     <?php endif ?>
                     <h6 class="mb-4 text-muted">Login to your account</h6>
                     <form action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
+                        <?php CSRF::csrfInputField() ?>
                         <div class="mb-3 text-start">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" name="username" class="form-control" placeholder="Username" required>

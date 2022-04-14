@@ -10,7 +10,7 @@ if(isset($_SESSION['name'])) {
 
 $error = false;
 
-if(isset($_POST['register'])) {
+if(isset($_POST['register']) && CSRF::validateToken($_POST['token'])) {
   $lastname = filter_input(INPUT_POST, 'lastname');
   $firstname = filter_input(INPUT_POST, 'firstname');
   $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -103,6 +103,7 @@ if(isset($_POST['register'])) {
                 </svg>
             </a>
             <form class="text-left clearfix" method="post" action="<?= $_SERVER['REQUEST_URI'] ?>" >
+                <?php CSRF::csrfInputField() ?>
                 <div class="form-group">
                     <input type="text" name="firstname" class="form-control"  placeholder="Firstname">
                 </div>

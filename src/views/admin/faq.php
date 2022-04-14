@@ -7,7 +7,7 @@ require __DIR__ . '/../db.php';
 $data;
 $edit = false;
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
     if(isset($_POST['question'])) {
         $statement = $pdo->prepare("UPDATE faq SET question=? WHERE id=?");
@@ -27,7 +27,7 @@ if(isset($_GET['id'])) {
         $data = $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 } else {
-    if(isset($_POST['delete'])) {
+    if(isset($_POST['delete']) && CSRF::validateToken($_POST['token'])) {
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
         $statement = $pdo->prepare("DELETE FROM faq WHERE id=?");
         $statement->execute(array($id));
@@ -52,6 +52,7 @@ if(isset($_GET['id'])) {
             <div class="card-header">Edit FAQ</div>
             <div class="card-body">
                 <form accept-charset="utf-8" method="post" action="/admin/faq">
+                    <?php CSRF::csrfInputField() ?>
                     <div class="mb-3">
                         <label class="form-label">Question</label>
                         <input type="text" name="question" placeholder="Question" class="form-control" value="<?= $data[0]['question'] ?>">
@@ -85,6 +86,7 @@ if(isset($_GET['id'])) {
                                     <td><?= $faq['answer'] ?></td>
                                     <td class="text-end">
                                         <form action="/admin/faq" method="post">
+                                            <?php CSRF::csrfInputField() ?>
                                             <input type="text" name="id" value="<?= $faq['id'] ?>" hidden>
                                             <a href="/admin/faq?id=<?= $faq['id']; ?>" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen"></i></a>
                                             <button name="delete" type="submit" class="btn btn-outline-danger btn-rounded"><i class="fas fa-trash"></i></button>

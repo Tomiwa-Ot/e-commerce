@@ -4,17 +4,17 @@ require __DIR__ . '/header.php';
 require __DIR__ . '/../db.php';
 require __DIR__ . '/../../csrf.php';
 
-if(isset($_POST['policy-submit'])) {
+if(isset($_POST['policy-submit']) && CSRF::validateToken($_POST['token'])) {
     $statement = $pdo->prepare("UPDATE policy SET policy=? WHERE id=?");
     $statement->execute(array(filter_input(INPUT_POST, 'policy'), 1));
 }
 
-if(isset($_POST['about-submit'])) {
+if(isset($_POST['about-submit']) && CSRF::validateToken($_POST['token'])) {
     $statement = $pdo->prepare("UPDATE about SET about=? WHERE id=?");
     $statement->execute(array(filter_input(INPUT_POST, 'about'), 1));
 }
 
-if(isset($_POST['contact-submit'])) {
+if(isset($_POST['contact-submit']) && CSRF::validateToken($_POST['token'])) {
     if(isset($_POST['address'])) {
         $statement = $pdo->prepare("UPDATE contact SET name=? WHERE id=?");
         $statement->execute(array(filter_input(INPUT_POST, 'address'), filter_input(INPUT_POST, 'ad-id'. FILTER_SANITIZE_NUMBER_INT)));
@@ -95,6 +95,7 @@ $email = $statement->fetchAll();
                 <div class="tab-pane fade active show" id="general" role="tabpanel" aria-labelledby="general-tab">
                     <div class="col-md-6">
                         <form action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
+                            <?php CSRF::csrfInputField() ?>
                             <div class="mb-3">
                                 <textarea class="form-control" style="resize:none" required rows="20" name="about"><?= $about[0]['about'] ?></textarea>
                             </div>
@@ -109,6 +110,7 @@ $email = $statement->fetchAll();
                         <form action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
                             <div class="mb-3">
                                 <div class="input-group mb-3">
+                                    <?php CSRF::csrfInputField() ?>
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-home"></i></span>
                                     <input type="text" name="address" class="form-control" value="<?= $address[0]['value'] ?>">
                                     <input name="ad-id" value="<?= $address[0]['id'] ?>" hidden>
@@ -159,6 +161,7 @@ $email = $statement->fetchAll();
                     <h4 class="mb-0">Legal Notice</h4>
                     <p class="text-muted">Copyright (c) <script>document.write(new Date().getFullYear());</script> Yem-Yem. All rights reserved.</p>
                     <form action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
+                        <?php CSRF::csrfInputField() ?>
                         <textarea class="form-control" name="policy" style="resize:none" required rows="20"><?= $privacyPolicy[0]['policy'] ?></textarea>            
                         <div class="mb-3 text-end">
                             <button class="btn btn-success" name="policy-submit" type="submit"><i class="fas fa-check"></i> Update</button>

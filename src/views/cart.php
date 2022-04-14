@@ -8,7 +8,7 @@ require __DIR__ . '/sendgrid-php/sendgrid-php.php';
 require __DIR__ . '/admin/util.php';
 
 
-if(isset($_POST['checkout'])) {
+if(isset($_POST['checkout']) && CSRF::validateToken($_POST['token'])) {
   if(!isset($_SESSION['name'])) {
     header('Location: /login');
   } else {
@@ -55,6 +55,7 @@ if(isset($_POST['checkout'])) {
           <div class="block">
             <div class="product-list">
               <form method="post">
+                <?php CSRF::csrfInputField() ?>
                 <table class="table">
                   <thead>
                     <tr>
@@ -109,6 +110,7 @@ if(isset($_POST['checkout'])) {
                   </tbody>
                 </table>
                 <form action="/cart" method="post">
+                  <?php CSRF::csrfInputField() ?>
                   <button name="checkout" type="submit" class="btn btn-main pull-right">Checkout</button>
                 </form>
               </form>

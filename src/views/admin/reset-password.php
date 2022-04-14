@@ -6,7 +6,7 @@ require __DIR__ . '/../db.php';
 require __DIR__ . '/../../csrf.php';
 
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
    $password = password_hash(filter_input(INPUT_POST, 'password'), PASSWORD_DEFAULT);
    $statement = $pdo->prepare("UPDATE admin SET password=? WHERE username=?");
    $statement->execute(array($password, 'admin'));
@@ -36,6 +36,7 @@ if(isset($_POST['submit'])) {
                     <h6 class="mb-4 text-muted">Reset Password</h6>
                     <form action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
                         <div class="mb-3 text-start">
+                            <?php CSRF::csrfInputField() ?>
                             <label for="password" class="form-label">Password</label>
                             <input type="password" name="password" class="form-control" placeholder="Password" required>
                         </div>

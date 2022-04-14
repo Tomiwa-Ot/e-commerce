@@ -12,7 +12,7 @@ if(isset($_SESSION['name'])) {
 
 $success;
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
   $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
   $code = rand(10000, 99999);
   $expirationTime = time() * 30 * 60;
@@ -91,6 +91,7 @@ if(isset($_POST['submit'])) {
         <div class="block text-center">
           <form class="text-left clearfix" method="post" action="<?= $_SERVER['REQUEST_URI'] ?>">
             <p>Please enter the email address for your account. A reset code will be sent to you.</p>
+            <?php CSRF::csrfInputField() ?>
             <div class="form-group">
               <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Account email address">
             </div>

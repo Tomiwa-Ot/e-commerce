@@ -8,7 +8,7 @@ if(!isset($_SESSION['name'])) {
   header('Location: /login');
 }
 
-if(isset($_POST['update'])) {
+if(isset($_POST['update']) && CSRF::validateToken($_POST['token'])) {
   if(isset($_POST['firstname'])) {
     $firstname = filter_input(INPUT_POST, 'firstname');
     $statement = $pdo->prepare("UPDATE users SET firstname=? WHERE email=?");
@@ -50,6 +50,7 @@ if(isset($_POST['update'])) {
               <div class="media-body">
                 <form action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
                   <ul class="user-profile-list">
+                    <?php CSRF::csrfInputField() ?>
                     <li><span>Firstname:</span><input type="text" name="firstname" value="<?= explode(' ', $_SESSION['name'])[1] ?>"></li>
                     <li><span>Lastname:</span><input type="text" name="lastname" value="<?= explode(' ', $_SESSION['name'])[0] ?>"></li>
                     <li><span>Address:</span><input type="text" name="address" value="<?= $_SESSION['address'] ?>"></li>

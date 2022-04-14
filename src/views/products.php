@@ -21,7 +21,7 @@ if(!isset($_GET['p'])) {
 	$page = filter_input(INPUT_GET, 'p', FILTER_SANITIZE_NUMBER_INT);
 }
 
-if(isset($_POST['q']) && isset($_GET['c'])) {
+if(isset($_POST['q']) && isset($_GET['c']) && CSRF::validateToken($_POST['token'])) {
 	$query = filter_input(INPUT_POST, 'q');
 	$category = filter_input(INPUT_GET, 'c');
 	$statement = $pdo->prepare("SELECT * FROM products WHERE category='$category' AND CONCAT(`title`, `price`, `description`, `category`) LIKE '%$query%'");
@@ -31,7 +31,7 @@ if(isset($_POST['q']) && isset($_GET['c'])) {
 	} else {
 		$searchEmpty = true;
 	}
-} elseif(isset($_POST['q'])) {
+} elseif(isset($_POST['q']) && CSRF::validateToken($_POST['token'])) {
 	$query = filter_input(INPUT_POST, 'q');
 	$statement = $pdo->prepare("SELECT * FROM products WHERE CONCAT(`title`, `price`, `description`, `category`) LIKE '%$query%'");
 	$statement->execute();
@@ -91,10 +91,12 @@ if(isset($_POST['q']) && isset($_GET['c'])) {
 						<br>
 						<?php if(isset($_GET['c'])): ?>
 							<form action="/products?c=<?= filter_input(INPUT_GET, 'c') ?>" method="post">
+								<?php CSRF::csrfInputField() ?>
 							    <div class="form-group">
 								    <input name="q" type="search" class="form-control" placeholder="Search...">
 						<?php else: ?>
 							<form action="/products" method="post">
+								<?php CSRF::csrfInputField() ?>
 							    <div class="form-group">
 								    <input name="q" type="search" class="form-control" placeholder="Search...">
 						<?php endif ?>

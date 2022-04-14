@@ -10,7 +10,7 @@ if(isset($_SESSION['name'])) {
 
 $error = false;
 
-if(isset($_POST['login'])) {
+if(isset($_POST['login']) && CSRF::validateToken($_POST['token'])) {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $password = filter_input(INPUT_POST, 'password');
     $statement = $pdo->prepare("SELECT * FROM users WHERE email=?");
@@ -100,6 +100,7 @@ if(isset($_POST['login'])) {
             </a>
             <h2 class="text-center">Welcome Back</h2>
             <form class="text-left clearfix" method="post" action="<?= $_SERVER['REQUEST_URI'] ?>" >
+                <?php CSRF::csrfInputField() ?>
                 <div class="form-group">
                     <input type="email" name="email" class="form-control"  placeholder="Email">
                 </div>

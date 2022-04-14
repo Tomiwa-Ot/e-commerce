@@ -4,7 +4,7 @@ require __DIR__ . '/header.php';
 require __DIR__ . '/../db.php';
 require __DIR__ . '/../../csrf.php';
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $question = filter_input(INPUT_POST, 'question');
     $answer = filter_input(INPUT_POST, 'answer');
     $statement = $pdo->prepare("INSERT INTO faq(question, answer) VALUES (?, ?)");
@@ -19,6 +19,7 @@ if(isset($_POST['submit'])) {
             <div class="card-header">Create FAQ</div>
             <div class="card-body">
                 <form accept-charset="utf-8" method="post" action="/admin/faq/create">
+                    <?php CSRF::csrfInputField() ?>
                     <div class="mb-3">
                         <label class="form-label">Question</label>
                         <input type="text" name="question" placeholder="Question" class="form-control" required>

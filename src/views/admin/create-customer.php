@@ -4,7 +4,7 @@ require __DIR__ . '/header.php';
 require __DIR__ . '/../db.php';
 require __DIR__ . '/../../csrf.php';
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $lastname = filter_input(INPUT_POST, 'lastname'); 
     $firstname = filter_input(INPUT_POST, 'firstname');
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -24,6 +24,7 @@ if(isset($_POST['submit'])) {
             <div class="card-header">Create Customer</div>
             <div class="card-body">
                 <form class="needs-validation" novalidate accept-charset="utf-8" method="post" action="/admin/customers/create">
+                    <?php CSRF::csrfInputField() ?>
                     <div class="row g-2">
                         <div class="mb-3 col-md-4">
                             <input type="text" name="firstname" class="form-control" placeholder="Firstname" required>
