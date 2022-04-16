@@ -28,6 +28,8 @@ if(isset($_POST['login']) && CSRF::validateToken($_POST['token'])) {
         $error = true;
     }
     $error = true;
+} else {
+    header('Location: /400');
 }
 
 ?>

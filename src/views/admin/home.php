@@ -7,10 +7,14 @@ require __DIR__ . '/util.php';
 
 if(isset($_POST['export']) && CSRF::validateToken($_POST['token'])) {
     exportDB($host, $name, $user, $password);
+} else {
+    header('Location: /400');
 }
 
 if(isset($_POST['import']) && CSRF::validateToken($_POST['token'])) {
     importDB($pdo);
+} else {
+    header('Location: /400');
 }
 
 if(isset($_POST['send-email']) && CSRF::validateToken($_POST['token'])) {
@@ -29,6 +33,8 @@ if(isset($_POST['send-email']) && CSRF::validateToken($_POST['token'])) {
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         sendEmail(array($email), $title, $message, $key);
     }
+} else {
+    header('Location: /400');
 }
 
 $dateRange = array(

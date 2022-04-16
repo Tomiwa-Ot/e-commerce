@@ -19,6 +19,8 @@ if(isset($_POST['cart']) && CSRF::validateToken($_POST['token'])) {
         'quantity' => $_POST['quantity'],
         'image' => $_POST['image']
     );
+} else {
+    header('Location: /400');
 }
 
 

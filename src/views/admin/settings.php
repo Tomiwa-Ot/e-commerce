@@ -7,11 +7,15 @@ require __DIR__ . '/../../csrf.php';
 if(isset($_POST['policy-submit']) && CSRF::validateToken($_POST['token'])) {
     $statement = $pdo->prepare("UPDATE policy SET policy=? WHERE id=?");
     $statement->execute(array(filter_input(INPUT_POST, 'policy'), 1));
+} else {
+    header('Location: /400');
 }
 
 if(isset($_POST['about-submit']) && CSRF::validateToken($_POST['token'])) {
     $statement = $pdo->prepare("UPDATE about SET about=? WHERE id=?");
     $statement->execute(array(filter_input(INPUT_POST, 'about'), 1));
+} else {
+    header('Location: /400');
 }
 
 if(isset($_POST['contact-submit']) && CSRF::validateToken($_POST['token'])) {
@@ -39,6 +43,8 @@ if(isset($_POST['contact-submit']) && CSRF::validateToken($_POST['token'])) {
         $statement = $pdo->prepare("UPDATE contact SET name=? WHERE id=?");
         $statement->execute(array(filter_input(INPUT_POST, 'instagram'), filter_input(INPUT_POST, 'ig-id'. FILTER_SANITIZE_NUMBER_INT)));
     }
+} else {
+    header('Location: /400');
 }
 
 $statement = $pdo->prepare("SELECT * FROM policy");

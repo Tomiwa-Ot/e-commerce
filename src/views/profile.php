@@ -33,6 +33,8 @@ if(isset($_POST['update']) && CSRF::validateToken($_POST['token'])) {
     $statement->execute(array($phone, $_SESSION['email']));
     $_SESSION['phone'] = $phone;
   }
+} else {
+  header('Location: /400');
 }
 
 

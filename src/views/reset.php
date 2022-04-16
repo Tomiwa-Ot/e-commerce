@@ -29,6 +29,8 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     else {
         $success = false;
     }
+} else {
+    header('Location: /400');
 }
 
 if(isset($_POST['reset']) && CSRF::validateToken($_POST['token'])) {
@@ -36,6 +38,8 @@ if(isset($_POST['reset']) && CSRF::validateToken($_POST['token'])) {
     $statement = $pdo->prepare("UPDATE users SET password=?, code=?, expiration=? WHERE email=?");
     $statement->execute(array($password, 0, 0, filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL)));
     header('Location: /login');
+} else {
+    header('Location: /400');
 }
 
 ?>
