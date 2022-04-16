@@ -31,6 +31,12 @@ E-commerce web application built using php routing. Instead of relying on the we
 - Enter your sendrid domain https://github.com/Tomiwa-Ot/e-commerce/blob/237b20b500e685424939499d3dabc8aaa49c8ee5/src/views/admin/util.php#L20 https://github.com/Tomiwa-Ot/e-commerce/blob/d869b3605ccbd46c39c6abf0aad6a2746dd0a275/src/views/cart.php#L20
 - Enable the php_gd/gd extension in php.ini
 
+## Admin Credentials
+```
+username: admin
+password: 123456
+```
+
 ## Screenshots
 ![Login](screenshots/login.png)
 ![Register](screenshots/register.png)
