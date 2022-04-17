@@ -14,7 +14,6 @@ class CSRF {
     }
 
     static public function csrfInputField() {
-        session_start();
         $token = self::generateToken();
         $_SESSION['csrf_token'] = $token;
         echo '<input name="token" value="' . $token . '" hidden>';
