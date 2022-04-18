@@ -35,6 +35,7 @@ E-commerce web application built using php routing. Instead of relying on the we
 
 ## Admin Credentials
 ```
+uri: /admin/login
 username: admin
 password: 123456
 ```
