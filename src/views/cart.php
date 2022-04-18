@@ -30,8 +30,6 @@ if(isset($_POST['checkout']) && CSRF::validateToken($_POST['token'])) {
     }
     header('Location: /confirmation');
   }
-} else {
-  header('Location: /400');
 }
 
 ?>

@@ -15,8 +15,6 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $statement = $pdo->prepare("INSERT INTO users (firstname, lastname, email, phone, address, password) VALUES (?, ?, ?, ?, ?, ?)");
     $statement->execute(array($firstname, $lastname, $email, $phone, $address, $password));
     header('Location: /admin/customers');
-} else {
-    header('Location: /400');
 }
 
 ?>

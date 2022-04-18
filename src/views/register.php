@@ -35,8 +35,6 @@ if(isset($_POST['register']) && CSRF::validateToken($_POST['token'])) {
     header('Location: /');
   }
 
-} else {
-    header('Location: /400');
 }
 ?>
 

@@ -17,8 +17,6 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
         $statement = $pdo->prepare("UPDATE faq SET answer=? WHERE id=?");
         $statement->execute(array(filter_input(INPUT_POST, 'answer'), $id));
     }
-} else {
-    header('Location: /400');
 }
 
 if(isset($_GET['id'])) {
@@ -33,8 +31,6 @@ if(isset($_GET['id'])) {
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
         $statement = $pdo->prepare("DELETE FROM faq WHERE id=?");
         $statement->execute(array($id));
-    } else {
-        header('Location: /400');
     }
     
     $statement = $pdo->prepare("SELECT * FROM faq");

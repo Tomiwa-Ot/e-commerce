@@ -21,8 +21,6 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
         $error = true;
     }
     $error = true;
-} else {
-    header('Location: /400');
 }
 
 

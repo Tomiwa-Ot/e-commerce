@@ -11,8 +11,6 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
    $statement = $pdo->prepare("UPDATE admin SET password=? WHERE username=?");
    $statement->execute(array($password, 'admin'));
    header('Location: /admin/home');
-} else {
-    header('Location: /400');
 }
 
 

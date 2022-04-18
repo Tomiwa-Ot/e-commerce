@@ -10,8 +10,6 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $statement = $pdo->prepare("INSERT INTO faq(question, answer) VALUES (?, ?)");
     $statement->execute(array($question, $answer));
     header('Location: /admin/faq');
-} else {
-    header('Location: /400');
 }
 
 ?>

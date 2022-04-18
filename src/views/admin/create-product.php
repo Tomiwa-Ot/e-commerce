@@ -20,8 +20,6 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $statement = $pdo->prepare("INSERT INTO products(title, price, description, category, images) VALUES (?, ?, ?, ?, ?)");
     $statement->execute(array($title, $price, $description, $category, $paths));
     header('Location: /admin/products');
-} else {
-    header('Location: /400');
 }
 
 $statement = $pdo->prepare("SELECT * FROM categories");
