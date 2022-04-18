@@ -16,7 +16,7 @@ E-commerce web application built using php routing. Instead of relying on the we
     #### Admin Panel
 - Create, modify and delete products, customers and faq
 - Unlimited product pictures
-- Image compression ([php_gd](https://php.net/manual/en/book.image.php))
+- Image compression ([php_gd](https://php.net/manual/en/book.image.php)): 50%
 - Image magic bytes verification
 - Create or select product category
 - Export/Import database
@@ -35,6 +35,7 @@ E-commerce web application built using php routing. Instead of relying on the we
 
 ## Admin Credentials
 ```
+uri: /admin/login
 username: admin
 password: 123456
 ```
