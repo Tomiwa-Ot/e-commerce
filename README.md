@@ -10,12 +10,14 @@ E-commerce web application built using php routing. Instead of relying on the we
 - Update profile
 - Order history
 - CSRF protection
+- Input sanitisation
 - Sends invoice to user's email using ([sendgrid](https://sendgrid.com))
 - Livechat ([intercom](https://intercom.com))
     #### Admin Panel
 - Create, modify and delete products, customers and faq
 - Unlimited product pictures
 - Image compression ([php_gd](https://php.net/manual/en/book.image.php))
+- Image magic bytes verification
 - Create or select product category
 - Export/Import database
 - Last 7 days sales and revenue stats using Chartjs
