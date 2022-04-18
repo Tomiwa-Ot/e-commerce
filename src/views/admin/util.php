@@ -112,7 +112,7 @@ function uploadImages() {
 
             // Check whether file type is valid 
             $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
-            if(in_array($fileType, $allowTypes)) {
+            if(in_array($fileType, $allowTypes) && verifyMagicByte($_FILES["files"]["tmp_name"][$key])) {
                 $imageTemp = $_FILES["files"]["tmp_name"][$key];
                 $imageUploadPath = $targetDir . $fileName;
                 $paths[] = compressImage($imageTemp, $imageUploadPath, 50);
@@ -121,6 +121,16 @@ function uploadImages() {
          
     }
     return $paths;
+}
+
+
+function verifyMagicByte($file) {
+    // PNG, GIF, JFIF JPEG, EXIF JPEF respectively
+    $allowed = array('89504E47', '47494638', 'FFD8FFE0', 'FFD8FFE1');
+    $handle = fopen($file, 'r');
+    $bytes = strtoupper(bin2hex(fread($handle, 4)));
+    fclose($handle);
+    return in_array($bytes, $allowed);
 }
 
 
