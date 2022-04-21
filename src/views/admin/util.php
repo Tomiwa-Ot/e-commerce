@@ -133,6 +133,16 @@ function verifyMagicByte($file) {
     return in_array($bytes, $allowed);
 }
 
+function removeExif($image) {
+    $img = new Imagick($image);
+    $profiles = $img->getImageProfiles("icc", true);
+
+    $img->stripImage();
+
+    if(!empty($profiles))
+        $img->profileImage("icc", $profiles['icc']);
+}
+
 
 function compressImage($source, $destination, $quality) { 
     // Get image info 
