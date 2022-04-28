@@ -39,9 +39,9 @@ if($statement->rowCount() > 0) {
 							<tbody>
 								<?php foreach($details as $detail): ?>
                                     <tr>
-                                        <td><?= $detail['title'] ?></td>
+                                        <td><?= htmlspecialchars($detail['title']) ?></td>
                                         <td>₦<?= number_format($detail['price'], 2) ?></td>
-                                        <td><?= $detail['quantity'] ?></td>
+                                        <td><?= htmlspecialchars($detail['quantity']) ?></td>
                                         <td><?= number_format($detail['price'] * $detail['quantity'], 2) ?></td>
                                     </tr>
                                 <?php endforeach; ?>

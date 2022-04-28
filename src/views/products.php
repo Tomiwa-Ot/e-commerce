@@ -82,7 +82,7 @@ if(isset($_POST['q']) && isset($_GET['c']) && CSRF::validateToken($_POST['token'
 									<ul>
 										<li><a href="/products">All</a></li>
 										<?php foreach($categories as $category): ?>
-											<li><a href="/products?c=<?= $category['title']; ?>"><?= $category['title']; ?></a></li>
+											<li><a href="/products?c=<?= htmlspecialchars($category['title']); ?>"><?= htmlspecialchars($category['title']); ?></a></li>
 										<?php endforeach; ?>
 									</ul>
 								</div>
@@ -117,10 +117,10 @@ if(isset($_POST['q']) && isset($_GET['c']) && CSRF::validateToken($_POST['token'
 								<div class="product-item">
 									<div class="product-thumb">
 										<!--<span class="bage">Sale</span>-->
-										<img class="img-responsive" src="<?= unserialize($product['images'])[0] ?>" alt="product-img" />
+										<img class="img-responsive" src="<?= htmlspecialchars(unserialize($product['images'])[0]) ?>" alt="product-img" />
 									</div>
 									<div class="product-content">
-										<h4><a href="/item?id=<?= $product['id'] ?>"><?= $product['title'] ?></a></h4>
+										<h4><a href="/item?id=<?= htmlspecialchars($product['id']) ?>"><?= htmlspecialchars($product['title']) ?></a></h4>
 										<p class="price">₦ <?= number_format($product['price'], 2) ?></p>
 									</div>
 								</div>

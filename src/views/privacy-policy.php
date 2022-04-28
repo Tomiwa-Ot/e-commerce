@@ -13,7 +13,7 @@ $data = $statement->fetchAll(PDO::FETCH_ASSOC);
 		<div class="row">
 			<div class="col-lg-5-offset-3 col-md-5 col-sm-12">
 				<h2>Privacy Policy</h2>
-				<p><?= $data[0]['policy'] ?></p>
+				<p><?= htmlspecialchars($data[0]['policy']) ?></p>
 			</div>
 		</div>
     </div>

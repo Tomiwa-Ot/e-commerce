@@ -94,17 +94,17 @@ session_start();
                                     <?php foreach($_SESSION['cart'] as $item): ?>
                                         <div class="media">
                                             <a class="pull-left" href="#!">
-                                                <img class="media-object" src="<?= $item['image'] ?>" alt="image" />
+                                                <img class="media-object" src="<?= htmlspecialchars($item['image']) ?>" alt="image" />
                                             </a>
                                             <div class="media-body">
-                                                <h4 class="media-heading"><a href=""><?= $item['title'] ?></a></h4>
+                                                <h4 class="media-heading"><a href=""><?= htmlspecialchars($item['title']) ?></a></h4>
                                                 <div class="cart-price">
-                                                    <span><?= $item['quantity'] ?> x</span>
+                                                    <span><?= htmlspecialchars($item['quantity']) ?> x</span>
                                                     <span><?= number_format($item['price'], 2) ?></span>
                                                 </div>
                                                 <h5><strong>₦ <?= number_format($item['quantity'] * $item['price'], 2) ?></strong></h5>
                                             </div>
-                                            <a href="/cart-remove-item?id=<?= $item['id'] ?>"><i class="tf-ion-close"></i></a>
+                                            <a href="/cart-remove-item?id=<?= htmlspecialchars($item['id']) ?>"><i class="tf-ion-close"></i></a>
                                         </div>
                                     <?php endforeach; ?>
                                     <div class="cart-summary">
@@ -170,7 +170,7 @@ session_start();
                         <?php if(isset($_SESSION['name'])): ?>
                             <li class="dropdown dropdown-slide">
                                 <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
-                                    role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['name']; ?><span
+                                    role="button" aria-haspopup="true" aria-expanded="false"><?php echo htmlspecialchars($_SESSION['name']); ?><span
                                         class="tf-ion-ios-arrow-down"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/profile">Profile</a></li>

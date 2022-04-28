@@ -155,9 +155,9 @@ function generateInvoice($date){
                             <table>
                                 <tr>
                                     <td>";
-                                $invoice .= $_SESSION['name'] . "<br />";
-                                $invoice .= $_SESSION['address'] . "<br />";
-                                $invoice .= $_SESSION['email'] . "
+                                $invoice .= htmlspecialchars($_SESSION['name']) . "<br />";
+                                $invoice .= htmlspecialchars($_SESSION['address']) . "<br />";
+                                $invoice .= htmlspecialchars($_SESSION['email']) . "
                                     </td>
                                 </tr>
                             </table>
@@ -173,7 +173,7 @@ function generateInvoice($date){
                     $total = 0;
                     foreach($_SESSION['cart'] as $item) {
                         $invoice .= "<tr class=\"item\">";
-                        $invoice .= "<td>" . $item['title'] . "(x" . $item['quantity']  . ")</td>";
+                        $invoice .= "<td>" . htmlspecialchars($item['title']) . "(x" . htmlspecialchars($item['quantity'])  . ")</td>";
                         $invoice .= "<td>₦" . number_format($item['price'] * $item['quantity'], 2) . "</td>";
                         $invoice .= "</tr>";
                         $total += $item['price'] * $item['quantity'];

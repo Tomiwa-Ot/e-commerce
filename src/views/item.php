@@ -49,7 +49,7 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
 				<ol class="breadcrumb">
 					<li><a href="/">Home</a></li>
 					<li><a href="/products">Shop</a></li>
-					<li class="active"><?= $item[0]['category']; ?></li>
+					<li class="active"><?= htmlspecialchars($item[0]['category']); ?></li>
 				</ol>
 			</div>
 		</div>
@@ -62,7 +62,7 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <div class='carousel-inner '>
                                 <?php if(count($images) > 1): ?>
                                     <div class='item active'>
-                                        <img src='<?= $images[0] ?>' alt='' data-zoom-image="<?= $images[0] ?>" />
+                                        <img src='<?= htmlspecialchars($images[0]) ?>' alt='' data-zoom-image="<?= htmlspecialchars($images[0]) ?>" />
                                     </div>
                                     <?php 
                                         foreach($images as $key=>$image){
@@ -70,13 +70,13 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
                                                 continue;
                                             }
                                           echo "<div class='item'>";
-                                          echo "<img src='" . $image . "' alt='' data-zoom-image='" . $image . "' />";
+                                          echo "<img src='" . htmlspecialchars($image) . "' alt='' data-zoom-image='" . htmlspecialchars($image) . "' />";
                                           echo "</div>";
                                         }
                                     ?>
                                 <?php else: ?>
                                     <div class='item active'>
-                                        <img src='<?= $images[0] ?>' alt='' data-zoom-image="<?= $images[0] ?>" />
+                                        <img src='<?= htmlspecialchars($images[0]) ?>' alt='' data-zoom-image="<?= htmlspecialchars($images[0]) ?>" />
                                     </div>  
                                 <?php endif ?>
 
@@ -96,7 +96,7 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
                         <ol class='carousel-indicators mCustomScrollbar meartlab'>
                             <?php foreach($images as $image): ?>
                                 <li data-target='#carousel-custom' data-slide-to='0' class='active'>
-                                    <img src='<?= $image ?>' alt='' />
+                                    <img src='<?= htmlspecialchars($image) ?>' alt='' />
                                 </li>
                             <?php endforeach; ?>
                         </ol>
@@ -104,17 +104,17 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <div class="col-md-7">
-                <form action="/item?id=<?= $item[0]['id'] ?>" method="post">
+                <form action="/item?id=<?= htmlspecialchars($item[0]['id']) ?>" method="post">
                     <div class="single-product-details">
-                        <h2><?= $item[0]['title'] ?></h2>
+                        <h2><?= htmlspecialchars($item[0]['title']) ?></h2>
                         <?php CSRF::csrfInputField() ?>
-                        <input type="text" name="title" value="<?= $item[0]['title'] ?>" hidden>
+                        <input type="text" name="title" value="<?= htmlspecialchars($item[0]['title']) ?>" hidden>
                         <p class="product-price">₦<?= number_format($item[0]['price'], 2) ?></p>
-                        <input type="text" name="price" value="<?= $item[0]['price'] ?>" hidden>
-                        <input type="text" name="image" value="<?= unserialize($item[0]['images'])[0] ?>" hidden>
+                        <input type="text" name="price" value="<?= htmlspecialchars($item[0]['price']) ?>" hidden>
+                        <input type="text" name="image" value="<?= htmlspecialchars(unserialize($item[0]['images'])[0]) ?>" hidden>
                         <p class="product-description mt-20">
-                            <?= $item[0]['description'] ?>
-                            <input type="text" name="description" value="<?= $item[0]['description'] ?>" hidden>
+                            <?= htmlspecialchars($item[0]['description']) ?>
+                            <input type="text" name="description" value="<?= htmlspecialchars($item[0]['description']) ?>" hidden>
                         </p>
                         <div class="product-quantity">
                             <span>Quantity:</span>
@@ -125,11 +125,11 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
                         <div class="product-category">
                             <span>Categories:</span>
                             <ul>
-                                <li><a href="/products?c=<?= $item[0]['category'] ?>"><?= $item[0]['category'] ?></a></li>
-                                <input type="text" name="category" value="<?= $item[0]['category'] ?>" hidden>
+                                <li><a href="/products?c=<?= htmlspecialchars($item[0]['category']) ?>"><?= htmlspecialchars($item[0]['category']) ?></a></li>
+                                <input type="text" name="category" value="<?= htmlspecialchars($item[0]['category']) ?>" hidden>
                             </ul>
                         </div>
-						<input type="text" name="id" value="<?= $item[0]['id'] ?>" hidden>
+						<input type="text" name="id" value="<?= htmlspecialchars($item[0]['id']) ?>" hidden>
                         <?php if($inCart): ?>
 							<button name="cart" type="submit" class="btn btn-main text-center" disabled>Add to Cart</button>
 						<?php else: ?>
@@ -153,7 +153,7 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
     			<div class="col-md-3">
     				<div class="product-item">
     					<div class="product-thumb">
-    						<img class="img-responsive" src="<?= unserialize($item['images'])[0] ?>" alt="product-img" />
+    						<img class="img-responsive" src="<?= htmlspecialchars(unserialize($item['images'])[0]) ?>" alt="<?= htmlspecialchars($item['title']) ?>" />
     						<div class="preview-meta">
     							<ul>
     								<li>
@@ -171,7 +171,7 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
                           	</div>
     					</div>
     					<div class="product-content">
-    						<h4><a href="/item?id=<?= $item['id'] ?>"><?= $item['title'] ?></a></h4>
+    						<h4><a href="/item?id=<?= htmlspecialchars($item['id']) ?>"><?= htmlspecialchars($item['title']) ?></a></h4>
     						<p class="price">₦ <?= number_format($item['price'], 2) ?></p>
     					</div>
     				</div>

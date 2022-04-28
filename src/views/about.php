@@ -39,7 +39,7 @@ $email = $statement->fetchColumn();
 			</div>
 			<div class="col-md-6">
 				<h2>About Our Shop</h2>
-				<p><?= $about[0]['about'] ?></p>
+				<p><?= htmlspecialchars($about[0]['about']) ?></p>
 			</div>
 		</div>
 		<div class="row mt-40">
@@ -47,15 +47,15 @@ $email = $statement->fetchColumn();
                 <ul class="contact-short-info" >
                     <li>
                         <i class="tf-ion-ios-home"></i>
-                        <span><?= $address ?></span>
+                        <span><?= htmlspecialchars($address) ?></span>
                     </li>
                     <li>
                         <i class="tf-ion-android-phone-portrait"></i>
-                        <span>Phone: <?= $phone ?></span>
+                        <span>Phone: <?= htmlspecialchars($phone) ?></span>
                     </li>
                     <li>
                         <i class="tf-ion-android-mail"></i>
-                        <span>Email: <?= $email ?></span>
+                        <span>Email: <?= htmlspecialchars($email) ?></span>
                     </li>
                 </ul>
                 <!-- Footer Social Links -->

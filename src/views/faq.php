@@ -19,8 +19,8 @@ $statement->execute();
 			<div class="col-md-8">
 				<?php if($statement->rowCount() > 0): $faq = $statement->fetchAll(PDO::FETCH_ASSOC);?>
 					<?php foreach($faq as $data): ?>
-						<h4><?= $data['question'] ?></h4>
-						<p><?= $data['answer'] ?></p>
+						<h4><?= htmlspecialchars($data['question']) ?></h4>
+						<p><?= htmlspecialchars($data['answer']) ?></p>
 					<?php endforeach; ?>
 				<?php endif ?>
 			</div>

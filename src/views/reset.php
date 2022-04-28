@@ -15,7 +15,7 @@ if(!isset($_GET['email'])) {
 $success;
 
 if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
-    $code = filter_input(INPUT_POST, 'code');
+    $code = filter_input(INPUT_POST, 'code', FILTER_SANITIZE_NUMBER_INT);
     $statement = $pdo->prepare("SELECT * FROM users WHERE email=?");
     $statement->execute(array(filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL)));
     if($statement->rowCount() > 0) {

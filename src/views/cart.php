@@ -72,16 +72,16 @@ if(isset($_POST['checkout']) && CSRF::validateToken($_POST['token'])) {
                         <tr class="">
                           <td class="">
                             <div class="product-info">
-                              <img width="80" src="<?= $item['image'] ?>" alt="" />
-                              <a href="#!"><?= $item['title'] ?></a>
+                              <img width="80" src="<?= htmlspecialchars($item['image']) ?>" alt="" />
+                              <a href="#!"><?= htmlspecialchars($item['title']) ?></a>
                             </div>
                           </td>
                           <td class="">₦<?= number_format($item['price'], 2) ?></td>
-                          <td class="">   <?= $item['quantity'] ?></td>
+                          <td class="">   <?= htmlspecialchars($item['quantity']) ?></td>
                           <td class="">
                             <a href="/cart-remove-item?id=<?= $item['id'] ?>" class="product-remove">Remove</a>
                           </td>
-                          <td class="">₦<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
+                          <td class="">₦<?= number_format($item['price'] * htmlspecialchars($item['quantity']), 2) ?></td>
                         </tr>
                       <?php endforeach; ?>
 

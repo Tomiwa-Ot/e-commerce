@@ -34,7 +34,7 @@ $orders = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <tbody>
                             <?php foreach($orders as $order): ?>
                                 <tr>
-                                <td><?= $order['timestamp'] ?></td>
+                                <td><?= htmlspecialchars($order['timestamp']) ?></td>
                                 <td>₦<?php
                                     $details = unserialize($order['details']);
                                     $total = 0;
@@ -44,7 +44,7 @@ $orders = $statement->fetchAll(PDO::FETCH_ASSOC);
                                     echo $total;
                                     ?>
                                 </td>
-                                <td><a href="/order-details?id=<?= $order['id'] ?>" class="btn btn-default">View</a></td>
+                                <td><a href="/order-details?id=<?= htmlspecialchars($order['id']) ?>" class="btn btn-default">View</a></td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
