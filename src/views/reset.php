@@ -20,7 +20,7 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $statement->execute(array(filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL)));
     if($statement->rowCount() > 0) {
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        if($code == $result[0]['code'] && time() <= $result[0]['expiration']) {
+        if($code === $result[0]['code'] && time() <= $result[0]['expiration']) {
             $success= true;
         } else {
             $success = false;
