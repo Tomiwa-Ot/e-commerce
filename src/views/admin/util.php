@@ -112,7 +112,7 @@ function uploadImages() {
 
             // Check whether file type is valid 
             $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
-            if(in_array($fileType, $allowTypes) && verifyMagicByte($_FILES["files"]["tmp_name"][$key])) {
+            if(in_array($fileType, $allowTypes, true) && verifyMagicByte($_FILES["files"]["tmp_name"][$key])) {
                 $imageTemp = $_FILES["files"]["tmp_name"][$key];
                 $imageUploadPath = $targetDir . $fileName;
                 $paths[] = compressImage($imageTemp, $imageUploadPath, 50);
