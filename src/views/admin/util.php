@@ -105,9 +105,14 @@ function uploadImages() {
     $fileNames = array_filter($_FILES['files']['name']); 
     if(!empty($fileNames)){ 
         foreach($_FILES['files']['name'] as $key=>$val){ 
-            $fileType = pathinfo($_FILES["files"]["name"][$key], PATHINFO_EXTENSION);
-            $fileName = md5(microtime(true)) . '.' . $fileType;
+            // File upload path
+            $file = explode(".", $_FILES["files"]["name"][$key]);
+            $fileName = md5(microtime(true)) . '.' . end($file);
+            $targetFilePath = $targetDir . $fileName; 
+            
 
+            // Check whether file type is valid 
+            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
             // Check whether file type is valid 
             if(in_array($fileType, $allowTypes, true) && verifyMagicByte($_FILES["files"]["tmp_name"][$key])) {
                 $imageTemp = $_FILES["files"]["tmp_name"][$key];
