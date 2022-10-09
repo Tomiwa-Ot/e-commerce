@@ -1,7 +1,7 @@
 # ![php](https://img.shields.io/badge/Php-8993BE?style=for-the-badge&logo=php&logoColor=white) E-commerce Website
 E-commerce web application built using php routing. Instead of relying on the web server to map the request path to a file, all requests are forwarded to [index.php](/src/index.php) which has defined routes and callbacks registered to each route. If the request URI is a valid route, the callback returns a page to the user else, redirected to the 404 page.
 
-[Live Demo](https://tomiwa.com.ng/yemyem/)
+[Live Demo](https://web.archive.org/web/20220907155514/https://tomiwa.com.ng/yemyem/)
 
 ## Features
 - Login and registration system
